@@ -1,14 +1,11 @@
 version: '3.4'
 
 services:
-  db:
-    image: postgres:latest
-    container_name: postgres-db
-    environment:
-      POSTGRES_DB: stage
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1Q2w3e4r5t
+  projects:
+    build:
+      dockerfile:  projects/Dockerfile
     ports:
-      - "5432:5432"
-    volumes:
-      - ./dbdata:/var/lib/postgresql/data
+      - "8082:8082"
+    restart: always
+#    environment:
+#      - JAVA_OPTS=-Xms512m -Xmx1024m

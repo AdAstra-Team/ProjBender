@@ -23,10 +23,4 @@ public class AppSettings {
     public String resourceId;
     @Value("${keycloak.realm}")
     public String realmName;
-
-    @Value("${keycloak.client_secret}")
-    public String keycloakClientSecret;
-
-    @Value("${keycloak.url}")
-    public String keycloakBaseUrl;
 }
