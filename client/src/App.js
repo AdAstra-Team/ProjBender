@@ -1,12 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import "./Pages/Dashboard"
+import {Dashboard} from "./Pages/"
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
+      {/* <header className="App-header"> */}
+      {/* </header> */}
       <Dashboard/>
     </div>
   );
