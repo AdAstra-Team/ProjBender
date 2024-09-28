@@ -5,6 +5,7 @@ WORKDIR /client
 COPY /public/ /client/public
 COPY /src/ /client/src
 COPY /package.json /client/
+COPY /tailwind.config.js /client/
 
 RUN npm install
 
