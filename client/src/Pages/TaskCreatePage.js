@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import axios from 'axios';
 
 export default function TaskCreatePage(){
 
@@ -9,10 +9,42 @@ export default function TaskCreatePage(){
     const [assignee, setAssignee] = useState('');
     const [dueDate, setDueDate] = useState('');
 
-    const handleSubmit = (e) => {
+    // Replace with actual project and author IDs
+    const projectId = "3fa85f64-5717-4562-b3fc-2c963f66afa6"; // Example project ID
+    const authorId = "3fa85f64-5717-4562-b3fc-2c963f66afa6"; // Example author ID
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // Handle form submission logic here
-        
+        const taskData = {
+            id: crypto.randomUUID(), // Generate a unique ID for the task
+            description,
+            project: {
+                id: projectId,
+                name: title, // Use the title as the project name or adjust accordingly
+                tasks: [title], // Assuming tasks are related to the project
+            },
+            assignee: {
+                id: assignee, // Set to the actual assignee ID
+                authId: assignee, // Replace with actual authId if different
+                name: assignee, // Set to the actual assignee name or modify accordingly
+            },
+            author: {
+                id: authorId,
+                authId: authorId, // Replace with actual authId if different
+                name: "Author Name", // Replace with actual author name
+            },
+            hoursRemained: 0,
+            hoursDone: 0,
+        };
+
+        try {
+            const response = await axios.post('https://ad-4stra.ru/api/tasks', taskData);
+            console.log('Task created successfully:', response.data);
+            // Reset form or navigate to another page
+        } catch (error) {
+            console.error('Error creating task:', error);
+        }
 
         console.log({
             title,
