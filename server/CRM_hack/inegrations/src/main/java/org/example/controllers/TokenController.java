@@ -1,7 +1,7 @@
 package org.example.controllers;
 
-import org.example.configurations.model.dao.TokenDTO;
-import org.example.configurations.model.enums.AccessLevel;
+import org.example.model.dao.TokenDTO;
+import org.example.model.enums.AccessLevel;
 import org.example.services.TokenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

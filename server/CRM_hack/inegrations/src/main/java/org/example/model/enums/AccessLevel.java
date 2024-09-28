@@ -1,4 +1,4 @@
-package org.example.configurations.model.enums;
+package org.example.model.enums;
 
 
 public enum AccessLevel {
