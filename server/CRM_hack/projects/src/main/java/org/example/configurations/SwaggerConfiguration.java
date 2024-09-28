@@ -17,9 +17,9 @@ public class SwaggerConfiguration {
     public OpenAPI customOpenAPI() {
         OpenAPI openAPI = new OpenAPI()
                 .info(new Info()
-                        .title("API Documentation")
+                        .title("General API ProjBender ")
                         .version("1.0")
-                        .description("Описание вашего API"));
+                        .description("From Ad Astra"));
 
         // Если серверный URL определён в properties, добавляем его
         if (swaggerServerUrl != null) {
