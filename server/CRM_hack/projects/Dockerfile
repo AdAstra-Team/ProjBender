@@ -1,8 +1,8 @@
 FROM maven:3.8.4-openjdk-17-slim AS build
 WORKDIR /app
-COPY pom.xml .
-COPY projects/pom.xml projects/
-COPY projects/src projects/src
+COPY ./server/CRM_hack/pom.xml .
+COPY ./server/CRM_hack/projects/pom.xml projects/
+COPY ./server/CRM_hack/projects/src projects/src
 
 RUN mvn clean install -DskipTests
 
