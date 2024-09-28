@@ -4,12 +4,7 @@ import { default as Dashboard } from './DashboardPage'
 import { useKeycloak } from "@react-keycloak/web";
 
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+
 const navigation = [
   { name: 'Рабочий стол', href: '/', current: true },
   { name: 'Доски', href: '/Boards', current: false },
@@ -33,6 +28,19 @@ function classNames(...classes) {
 export default function Navigation() {
 
   const { keycloak } = useKeycloak();
+
+  const user = {
+    name: keycloak.user,
+    email: 'tom@example.com',
+    imageUrl:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  }
+  // console.log(keycloak.clientId);
+  // console.log(keycloak.idToken);
+  // console.log(keycloak.loginRequired);
+  // console.log(keycloak.profile.email);
+  // console.log(keycloak.profile.firstName);
+  // console.log(keycloak.profile.lastName);
 
   return (
     <>
