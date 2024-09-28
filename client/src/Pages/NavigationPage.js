@@ -1,6 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Dashboard } from '../Pages'
+import { default as Dashboard } from './DashboardPage'
 
 const user = {
   name: 'Tom Cook',
@@ -9,16 +9,16 @@ const user = {
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Reports', href: '#', current: false },
+  { name: 'Рабочий стол', href: '/', current: true },
+  { name: 'Доски', href: '/Boards', current: false },
+  { name: 'Задачи', href: '/Tasks', current: false },
+  { name: 'Календарь', href: '/Calendar', current: false },
+  { name: 'Проекты', href: '/Projects', current: false },
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Профиль', href: '/Profile' },
+  { name: 'Настройки', href: '/Settings' },
+  { name: 'Выйти', href: '/SignOut' },
 ]
 
 function classNames(...classes) {

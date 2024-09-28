@@ -1,2 +1,2 @@
-export {default as Navigation} from './Navigation'
-export {default as Dashboard} from './Dashboard'
+export {default as Navigation} from './NavigationPage'
+export {default as Dashboard} from './DashboardPage'
