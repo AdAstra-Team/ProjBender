@@ -5,7 +5,6 @@ import org.example.clients.KeycloakClient;
 import org.example.clients.ProjectsClient;
 import org.example.configurations.AppSettings;
 import org.example.model.dao.ProjectResponse;
-import org.example.repositories.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

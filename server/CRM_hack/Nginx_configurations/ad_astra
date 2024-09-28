@@ -1,0 +1,91 @@
+server {
+    server_name ad-4stra.ru www.ad-4stra.ru;
+
+    # Фронтенд на порту 8081
+    location / {        proxy_pass http://localhost:8081/;
+        proxy_set_header Host $host;        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /auth/ {
+        proxy_pass http://localhost:8080/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Prefix /auth;
+    }
+
+    location /integrations/ {
+        proxy_pass http://localhost:8083/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Prefix /auth;
+    }
+
+    # бэкененд на порту 8082
+    location /api/ {
+        proxy_pass http://localhost:8082/api/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Ssl on;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/ad-4stra.ru/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/ad-4stra.ru/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    server_name detulie.space www.detulie.space;
+
+    location / {
+        alias /home/meta-developer/nginx-files/;
+        add_header Content-Type text/html;
+    }
+
+    location /resume {
+         alias /home/meta-developer/nginx-files/resume.pdf;
+         add_header Content-Type application/pdf;
+    }
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/detulie.space/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/detulie.space/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+
+server {
+    if ($host = detulie.space) {
+           return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    listen 80;    server_name detulie.space www.detulie.space;
+    return 404; # managed by Certbot
+}
+
+
+server {
+    if ($host = www.ad-4stra.ru) {
+          return 301 https://$host$request_uri;
+    } # managed by Certbot
+    if ($host = ad-4stra.ru) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    listen 80;
+    server_name ad-4stra.ru www.ad-4stra.ru;
+    return 404; # managed by Certbot
+
+}
