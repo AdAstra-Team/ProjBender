@@ -1,13 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
 import {Navigation} from "./Pages/"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Dashboard, DesksPage, TasksPage } from './Pages';
+
 
 function App() {
   return (
     <div className="App">
       {/* <header className="App-header"> */}
       {/* </header> */}
-      <Navigation/>
+
+      <Router>
+        <Navigation/>
+            <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/boards" element={<DesksPage />} />
+                <Route path="/tasks" element={<TasksPage />} />
+                <Route path="/calendar" element={<TasksPage />} />
+                <Route path="/projects" element={<TasksPage />} />
+            </Routes>
+        </Router>
     </div>
   );
 }
