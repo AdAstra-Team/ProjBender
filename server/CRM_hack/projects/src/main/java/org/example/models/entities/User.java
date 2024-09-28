@@ -3,6 +3,7 @@ package org.example.models.entities;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -24,6 +25,9 @@ public class User {
 
     @OneToMany(mappedBy = "author")
     private List<Task> tasks;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Project> projects;
 
     public UUID getId() {
         return id;
