@@ -25,6 +25,7 @@ public class Task {
 
     private int hoursRemained;
     private int hoursDone;
+    private int priority;
 
     // Геттеры и сеттеры
     public UUID getId() {
@@ -81,5 +82,13 @@ public class Task {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }
