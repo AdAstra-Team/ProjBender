@@ -16,8 +16,6 @@ export default function TaskCreatePage(){
     const projectId = "1e0566fb-f9df-43b0-b02c-d6098c5d893d"; // Example project ID
     const authorId = "415939f0-0c06-4a89-b35c-00aa7363f72d"; // Example author ID
 
-    const GetProjectList = async () => await axios.get("https://ad-4stra.ru/api/projects");
-
     // Fetch projects when the component mounts
     useEffect(() => {
         const fetchProjects = async () => {

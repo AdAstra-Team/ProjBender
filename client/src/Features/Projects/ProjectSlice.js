@@ -1,6 +1,6 @@
 // src/features/projects/projectSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getProjects } from '../../services/projectService'; // API service
+import { getProjects } from '../../Services/projectService.js'; // API service
 
 // Async action for fetching projects
 export const fetchProjects = createAsyncThunk('projects/fetchProjects', async () => {

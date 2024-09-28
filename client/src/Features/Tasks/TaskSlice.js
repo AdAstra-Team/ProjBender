@@ -1,6 +1,6 @@
 // src/features/projects/projectSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getTasks } from '../../services/taskService'; // API service
+import { getTasks } from '../../Services/taskService.js'; // API service
 
 // Async action for fetching projects
 export const fetchProjects = createAsyncThunk('tasks/fetchTasks', async () => {
@@ -8,7 +8,7 @@ export const fetchProjects = createAsyncThunk('tasks/fetchTasks', async () => {
   return response;
 });
 
-const projectSlice = createSlice({
+const taskSlice = createSlice({
   name: 'tasks',
   initialState: {
     projects: [],

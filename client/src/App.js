@@ -1,7 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navigation, Dashboard, DesksPage, TasksPage, TaskCreatePage, ProjectsPage } from './Pages';
+import { Navigation, Dashboard, DesksPage, TaskPage, TasksPage, TaskCreatePage, ProjectsPage, CalendarPage } from './Pages';
+import { TaskCard } from './Components';
+import { Provider } from 'react-redux';
+import { store } from './app/Store';
 
 
 function App() {
@@ -10,17 +13,20 @@ function App() {
       {/* <header className="App-header"> */}
       {/* </header> */}
 
-      <Router>
-        <Navigation/>
-            <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/boards" element={<DesksPage />} />
-                <Route path="/tasks" element={<TasksPage />} />
-                <Route path="/calendar" element={<TasksPage />} />
-                <Route path="/projects" element={<ProjectsPage />} />
-                <Route path="/CreateTask" element={<TaskCreatePage />} />
-            </Routes>
-        </Router>
+      <Provider store={store}>
+        <Router>
+          <Navigation/>
+              <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/boards" element={<DesksPage />} />
+                  <Route path="/tasks" element={<TaskPage />} />
+                  <Route path="/calendar" element={<CalendarPage />} />
+                  <Route path="/projects" element={<ProjectsPage />} />
+                  <Route path="/CreateTask" element={<TaskCreatePage />} />
+                  {/* <Route path="/Task{id}" element={<TaskCard />} /> */}
+              </Routes>
+          </Router>
+        </Provider>
     </div>
   );
 }
