@@ -9,3 +9,10 @@ export class TaskModel {
       this.priority = priority;
     }
   }
+
+export const TaskType = Object.freeze({
+    BUG: 'bug',
+    FEATURE: 'feature',
+    STORY: 'story',
+    TEST: 'test'
+});
