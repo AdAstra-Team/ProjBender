@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth, clearAuth } from './Features/Auth/authSlice';
 import { useKeycloak } from "@react-keycloak/web";
+import { getTokenFromCookies } from "./Services/KeyCloak";
 
 
 
@@ -17,13 +18,21 @@ function App() {
 
   useEffect(() => {
     if (!keycloak.authenticated) {
+      token = getTokenFromCookies();
+      if (token != ""){
+        keycloak.token = token;
+        keycloak.authenticated = true;
+      }
+
       dispatch(clearAuth());
-      keycloak.login();
-    } else {
+    } 
+    else {
       const token = keycloak.token;
       const user = keycloak.tokenParsed;
+      document.cookie = `keycloakToken=${token}; path=/; max-age=${keycloak.tokenParsed.exp - keycloak.tokenParsed.iat}; secure`;
       
       dispatch(setAuth({ token, user }));
+      console.log("User authenticated and token is set in cookies");
     }
     setKeycloakInitialized(true);
   }, [keycloak]);
