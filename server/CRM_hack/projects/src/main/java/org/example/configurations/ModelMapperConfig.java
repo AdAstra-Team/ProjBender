@@ -1,13 +1,14 @@
 package org.example.configurations;
 
-import org.dozer.DozerBeanMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DozerConfig {
+public class ModelMapperConfig {
+
     @Bean
-    public DozerBeanMapper dozerBeanMapper() {
-        return new DozerBeanMapper();
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }
