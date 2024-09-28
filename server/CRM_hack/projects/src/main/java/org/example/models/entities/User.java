@@ -15,6 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    private UUID authId;
 
     private String name;
 
@@ -38,5 +39,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UUID getAuthId() {
+        return authId;
+    }
+
+    public void setAuthId(UUID authId) {
+        this.authId = authId;
     }
 }
