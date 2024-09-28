@@ -18,8 +18,8 @@ function App() {
 
   useEffect(() => {
     if (!keycloak.authenticated) {
-      token = getTokenFromCookies();
-      if (token != ""){
+      var token = getTokenFromCookies();
+      if (token != "" && token != null){
         keycloak.token = token;
         keycloak.authenticated = true;
       }
@@ -29,7 +29,9 @@ function App() {
     else {
       const token = keycloak.token;
       const user = keycloak.tokenParsed;
-      document.cookie = `keycloakToken=${token}; path=/; max-age=${keycloak.tokenParsed.exp - keycloak.tokenParsed.iat}; secure`;
+      if (user != null | user != ""){
+        document.cookie = `keycloakToken=${token}; path=/; max-age=${user.exp - user.iat}; secure`;
+      }
       
       dispatch(setAuth({ token, user }));
       console.log("User authenticated and token is set in cookies");
