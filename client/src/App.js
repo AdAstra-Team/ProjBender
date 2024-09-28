@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigation, Dashboard, DesksPage, TaskPage, TasksPage, TaskCreatePage, ProjectsPage, CalendarPage } from './Pages';
 import { Profile, TaskCard, TaskCardList, TaskCardWithNodata, SignOut } from './Components';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAuth, clearAuth } from './Features/Auth/authSlice';
 import { useKeycloak } from "@react-keycloak/web";
 
@@ -17,24 +17,18 @@ function App() {
 
   useEffect(() => {
     if (!keycloak.authenticated) {
-
-      // Perform login or other actions, but do not re-initialize Keycloak
-        const token = keycloak.token;
-        const user = keycloak.tokenParsed;
-        
-        dispatch(setAuth({ token, user }));
-      } else {
-        dispatch(clearAuth());
-      }
-      setKeycloakInitialized(true);
-    }, [keycloak]);
+      dispatch(clearAuth());
+    } else {
+      const token = keycloak.token;
+      const user = keycloak.tokenParsed;
+      
+      dispatch(setAuth({ token, user }));
+    }
+    setKeycloakInitialized(true);
+  }, [keycloak]);
 
   if (!keycloakInitialized) {
     return <div>Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...</div>;
-  }
-
-  if (!keycloak.authenticated) {
-    keycloak.login();
   }
 
   return (    
