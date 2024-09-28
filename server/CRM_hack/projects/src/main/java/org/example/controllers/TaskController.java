@@ -1,6 +1,9 @@
 package org.example.controllers;
 
+import org.example.models.dao.TaskRequest;
+import org.example.models.dao.TaskResponse;
 import org.example.models.entities.Task;
+import org.example.services.MappingService;
 import org.example.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,8 @@ public class TaskController {
 
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private MappingService mappingService;
 
     @GetMapping
     public List<Task> getAllTasks() {
@@ -36,8 +41,10 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task createTask(@RequestBody Task task) {
-        return taskService.saveTask(task);
+    public TaskResponse createTask(@RequestBody TaskRequest taskRequest) {
+        var task = mappingService.map(taskRequest, Task.class);
+        var result = taskService.saveTask(task);
+        return mappingService.map(result, TaskResponse.class);
     }
 
     @DeleteMapping("/{id}")
