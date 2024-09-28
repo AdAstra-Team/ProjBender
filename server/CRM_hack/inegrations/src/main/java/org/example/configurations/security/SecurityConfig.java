@@ -26,8 +26,6 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/*").permitAll()
                                 .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/swagger").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/projects/create_empty_project").permitAll()
-                                .requestMatchers("/health/ping").hasAuthority("ROLE_ADMIN")
                                 //.anyRequest().authenticated());
                                 .anyRequest().permitAll());
 
