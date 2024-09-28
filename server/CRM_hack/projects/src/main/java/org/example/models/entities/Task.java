@@ -19,9 +19,14 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "assignee_id")
     private User assignee;
+
     @ManyToOne
     @JoinColumn(name = "author_id")
     private User author;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
 
     private int hoursRemained;
     private int hoursDone;
@@ -90,5 +95,13 @@ public class Task {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
