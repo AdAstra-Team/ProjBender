@@ -1,8 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import {Navigation} from "./Pages/"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Dashboard, DesksPage, TasksPage } from './Pages';
+import { Navigation, Dashboard, DesksPage, TasksPage, TaskCreatePage } from './Pages';
 
 
 function App() {
@@ -19,6 +18,7 @@ function App() {
                 <Route path="/tasks" element={<TasksPage />} />
                 <Route path="/calendar" element={<TasksPage />} />
                 <Route path="/projects" element={<TasksPage />} />
+                <Route path="/projects" element={<TaskCreatePage />} />
             </Routes>
         </Router>
     </div>
