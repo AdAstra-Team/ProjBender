@@ -19,7 +19,7 @@ public class User {
     private String name;
 
     @OneToMany(mappedBy = "assignee")
-    private List<User> assignee;
+    private List<User> assignedTasks;
 
     @OneToMany(mappedBy = "author")
     private List<Task> tasks;
