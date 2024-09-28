@@ -24,6 +24,14 @@ public class TaskService {
         return taskRepository.findById(id).orElse(null);
     }
 
+    public List<Task> getTaskByAssigneeId(UUID assigneeId) {
+        return taskRepository.findByAssigneeId(assigneeId);
+    }
+
+    public List<Task> getTaskByAuthorId(UUID authorId) {
+        return taskRepository.findByAuthorId(authorId);
+    }
+
     public Task saveTask(Task task) {
         return taskRepository.save(task);
     }

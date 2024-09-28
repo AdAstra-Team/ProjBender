@@ -25,6 +25,16 @@ public class TaskController {
         return taskService.getTaskById(id);
     }
 
+    @GetMapping("/{assigneeId}")
+    public List<Task> getTasksByAssigneeId(@PathVariable UUID assigneeId) {
+        return taskService.getTaskByAssigneeId(assigneeId);
+    }
+
+    @GetMapping("/{authorId}")
+    public List<Task> getTasksByAuthorId(@PathVariable UUID authorId) {
+        return taskService.getTaskByAuthorId(authorId);
+    }
+
     @PostMapping
     public Task createTask(@RequestBody Task task) {
         return taskService.saveTask(task);
