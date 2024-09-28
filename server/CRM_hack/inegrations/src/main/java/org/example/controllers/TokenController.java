@@ -55,7 +55,6 @@ public class TokenController {
         var jwt = (Jwt)(authentication.getCredentials());
         var uuid = UUID.fromString(jwt.getClaim("sub"));
 
-
         var tokens = tokenService.getTokensByProjectIdAndUserId(projectId, uuid);
         return ResponseEntity.ok(tokens);
     }
