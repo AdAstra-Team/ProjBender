@@ -1,21 +1,62 @@
 package org.example.controllers;
 
+import org.example.configurations.model.dao.TokenDTO;
+import org.example.configurations.model.enums.AccessLevel;
+import org.example.services.TokenService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/api/v1/tokens")
-public class TokenController {
+import java.util.List;
+import java.util.UUID;
 
-    @GetMapping("/{projectId}")
-    public ResponseEntity<String> getTokenByProjectId(@PathVariable("projectId") Long projectId) {
-        // Здесь нужно реализовать логику получения токена для проекта
-        String token = generateTokenForProject(projectId);
+@RestController
+@RequestMapping("/integrations/tokens")
+public class TokenController {
+    private final TokenService tokenService;
+
+    public TokenController(TokenService tokenService){
+        this.tokenService = tokenService;
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<TokenDTO> createToken(@RequestParam UUID projectId,
+                                                @RequestParam AccessLevel accessLevel,
+                                                @RequestParam long expirationTime) {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var jwt = (Jwt)(authentication.getCredentials());
+        var uuid = UUID.fromString(jwt.getClaim("sub"));
+
+        TokenDTO token = tokenService.createToken(projectId, accessLevel, expirationTime, uuid);
         return ResponseEntity.ok(token);
     }
 
-    @PostMapping()
-    private String generateTokenForProject(Long projectId) {
-        return "sampleTokenForProject-" + projectId;
+    @DeleteMapping("/{tokenId}")
+    public ResponseEntity<Void> deleteToken(@PathVariable UUID tokenId) {
+        tokenService.deleteToken(tokenId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<List<TokenDTO>> getTokensByUserId() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var jwt = (Jwt)(authentication.getCredentials());
+        var uuid = UUID.fromString(jwt.getClaim("sub"));
+
+        var tokens = tokenService.getTokensByUserId(uuid);
+        return ResponseEntity.ok(tokens);
+    }
+
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<TokenDTO>> getTokensByProjectId(@PathVariable UUID projectId) {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var jwt = (Jwt)(authentication.getCredentials());
+        var uuid = UUID.fromString(jwt.getClaim("sub"));
+
+
+        var tokens = tokenService.getTokensByProjectIdAndUserId(projectId, uuid);
+        return ResponseEntity.ok(tokens);
     }
 }
