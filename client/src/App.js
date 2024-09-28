@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navigation, Dashboard, DesksPage, TasksPage, TaskCreatePage } from './Pages';
+import { Navigation, Dashboard, DesksPage, TasksPage, TaskCreatePage, ProjectsPage } from './Pages';
 
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
                 <Route path="/boards" element={<DesksPage />} />
                 <Route path="/tasks" element={<TasksPage />} />
                 <Route path="/calendar" element={<TasksPage />} />
-                <Route path="/projects" element={<TasksPage />} />
+                <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/CreateTask" element={<TaskCreatePage />} />
             </Routes>
         </Router>
