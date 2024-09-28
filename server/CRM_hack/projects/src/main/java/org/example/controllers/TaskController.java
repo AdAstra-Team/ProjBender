@@ -1,13 +1,15 @@
 package org.example.controllers;
 
+import org.example.configurations.ModelMapperConfig;
 import org.example.models.dao.TaskRequest;
 import org.example.models.dao.TaskResponse;
 import org.example.models.entities.Task;
-import org.example.services.MappingService;
 import org.example.services.TaskService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,33 +20,36 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
     @Autowired
-    private MappingService mappingService;
+    private ModelMapper mapper;
 
     @GetMapping
-    public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
+    public List<TaskResponse> getAllTasks() {
+        var result = taskService.getAllTasks();
+        return mapper.map(result, new ArrayList<TaskResponse>(){}.getClass().getGenericSuperclass());
     }
 
     @GetMapping("/{id}")
-    public Task getTaskById(@PathVariable UUID id) {
-        return taskService.getTaskById(id);
+    public TaskResponse getTaskById(@PathVariable UUID id) {
+        return mapper.map(taskService.getTaskById(id), TaskResponse.class);
     }
 
     @GetMapping("/{assigneeId}")
-    public List<Task> getTasksByAssigneeId(@PathVariable UUID assigneeId) {
-        return taskService.getTaskByAssigneeId(assigneeId);
+    public List<TaskResponse> getTasksByAssigneeId(@PathVariable UUID assigneeId) {
+        var result = taskService.getTaskByAssigneeId(assigneeId);
+        return mapper.map(result, new ArrayList<TaskResponse>(){}.getClass().getGenericSuperclass());
     }
 
     @GetMapping("/{authorId}")
-    public List<Task> getTasksByAuthorId(@PathVariable UUID authorId) {
-        return taskService.getTaskByAuthorId(authorId);
+    public List<TaskResponse> getTasksByAuthorId(@PathVariable UUID authorId) {
+        var result = taskService.getTaskByAuthorId(authorId);
+        return mapper.map(result, new ArrayList<TaskResponse>(){}.getClass().getGenericSuperclass());
     }
 
     @PostMapping
     public TaskResponse createTask(@RequestBody TaskRequest taskRequest) {
-        var task = mappingService.map(taskRequest, Task.class);
+        var task = mapper.map(taskRequest, Task.class);
         var result = taskService.saveTask(task);
-        return mappingService.map(result, TaskResponse.class);
+        return mapper.map(result, TaskResponse.class);
     }
 
     @DeleteMapping("/{id}")
