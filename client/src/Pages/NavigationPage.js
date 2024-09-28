@@ -14,6 +14,7 @@ const navigation = [
   { name: 'Задачи', href: '/Tasks', current: false },
   { name: 'Календарь', href: '/Calendar', current: false },
   { name: 'Проекты', href: '/Projects', current: false },
+  { name: 'Создать', href: '/Create', current: false },
 ]
 const userNavigation = [
   { name: 'Профиль', href: '/Profile' },

@@ -18,7 +18,7 @@ function App() {
                 <Route path="/tasks" element={<TasksPage />} />
                 <Route path="/calendar" element={<TasksPage />} />
                 <Route path="/projects" element={<TasksPage />} />
-                <Route path="/projects" element={<TaskCreatePage />} />
+                <Route path="/CreateTask" element={<TaskCreatePage />} />
             </Routes>
         </Router>
     </div>
