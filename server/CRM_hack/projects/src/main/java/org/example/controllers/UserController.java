@@ -5,6 +5,9 @@ import org.example.models.entities.User;
 import org.example.services.TaskService;
 import org.example.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +22,11 @@ public class UserController {
 
     @GetMapping
     public User getMe() {
-        return userService.getMe();
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var jwt = (Jwt)(authentication.getCredentials());
+        var uuid = UUID.fromString(jwt.getClaim("sub"));
+
+        return userService.getUserByAuthId(uuid);
     }
 
     @GetMapping("/{name}")
