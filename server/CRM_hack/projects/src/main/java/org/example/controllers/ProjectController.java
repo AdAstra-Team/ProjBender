@@ -1,10 +1,16 @@
 package org.example.controllers;
 
+import org.example.models.dao.ProjectRequest;
+import org.example.models.dao.ProjectResponse;
+import org.example.models.dao.TaskResponse;
 import org.example.models.entities.Project;
+import org.example.models.entities.Task;
 import org.example.services.ProjectService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,25 +18,30 @@ import java.util.UUID;
 @RequestMapping("/projects")
 public class ProjectController {
     private final ProjectService projectService;
+    private final ModelMapper mapper;
 
     @Autowired
-    public ProjectController(ProjectService projectService){
+    public ProjectController(ProjectService projectService, ModelMapper mapper){
         this.projectService = projectService;
+        this.mapper = mapper;
     }
 
     @GetMapping
     public List<Project> getAllProjects() {
-        return projectService.getAllProjects();
+        var result = projectService.getAllProjects();
+        return mapper.map(result, new ArrayList<TaskResponse>(){}.getClass().getGenericSuperclass());
     }
 
     @GetMapping("/{id}")
-    public Project getProjectById(@PathVariable UUID id) {
-        return projectService.getProjectById(id);
+    public ProjectResponse getProjectById(@PathVariable UUID id) {
+        return mapper.map(projectService.getProjectById(id), ProjectResponse.class);
     }
 
     @PostMapping
-    public Project createProject(@RequestBody Project project) {
-        return projectService.saveProject(project);
+    public ProjectResponse createProject(@RequestBody ProjectRequest projectRequest) {
+        var project = mapper.map(projectRequest, Project.class);
+        var result = projectService.saveProject(project);
+        return mapper.map(result, ProjectResponse.class);
     }
 
     @PostMapping("/create_empty_project")
