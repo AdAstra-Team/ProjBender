@@ -15,7 +15,9 @@ const navigation = [
   { name: 'Календарь', href: '/Calendar', current: false },
   { name: 'Проекты', href: '/Projects', current: false },
   { name: 'Создать', href: '/CreateTask', current: false },
+  { name: 'JustSimpleTaskDemo', href: '/JustSimpleTaskDemo', current: false },
 ]
+
 const userNavigation = [
   { name: 'Профиль', href: '/Profile' },
   { name: 'Настройки', href: '/Settings' },
