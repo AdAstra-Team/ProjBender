@@ -1,6 +1,8 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { default as Dashboard } from './DashboardPage'
+import { useKeycloak } from "@react-keycloak/web";
+
 
 const user = {
   name: 'Tom Cook',
@@ -15,7 +17,9 @@ const navigation = [
   { name: 'Календарь', href: '/Calendar', current: false },
   { name: 'Проекты', href: '/Projects', current: false },
   { name: 'Создать', href: '/CreateTask', current: false },
+  { name: 'JustSimpleTaskDemo', href: '/JustSimpleTaskDemo', current: false },
 ]
+
 const userNavigation = [
   { name: 'Профиль', href: '/Profile' },
   { name: 'Настройки', href: '/Settings' },
@@ -27,6 +31,9 @@ function classNames(...classes) {
 }
 
 export default function Navigation() {
+
+  const { keycloak } = useKeycloak();
+
   return (
     <>
       {/*
@@ -153,16 +160,22 @@ export default function Navigation() {
                 </button>
               </div>
               <div className="mt-3 space-y-1 px-2">
-                {userNavigation.map((item) => (
-                  <DisclosureButton
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                  >
-                    {item.name}
-                  </DisclosureButton>
-                ))}
+                {
+                  keycloak.isLoggedIn ?
+                    userNavigation.map((item) => (
+                      <DisclosureButton
+                        key={item.name}
+                        as="a"
+                        href={item.href}
+                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                      >
+                        {item.name}
+                      </DisclosureButton>
+                    ))
+                    :
+                    ""
+                }
+                
               </div>
             </div>
           </DisclosurePanel>
