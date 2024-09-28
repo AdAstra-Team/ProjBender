@@ -18,6 +18,7 @@ function App() {
   useEffect(() => {
     if (!keycloak.authenticated) {
       dispatch(clearAuth());
+      keycloak.login();
     } else {
       const token = keycloak.token;
       const user = keycloak.tokenParsed;

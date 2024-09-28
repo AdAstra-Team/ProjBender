@@ -7,7 +7,7 @@ export const SignOut = () => {
     const { keycloak } = useKeycloak();
 
 
-    if(keycloak != null && keycloak!==undefined && keycloak.authenticated)
-        keycloak.logout();
+    // if(keycloak != null && keycloak!==undefined && keycloak.authenticated)
+    //     keycloak.logout();
     navigate('/');
 }
