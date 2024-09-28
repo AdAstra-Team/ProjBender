@@ -3,14 +3,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigation, Dashboard, DesksPage, TaskPage, TasksPage, TaskCreatePage, ProjectsPage, CalendarPage } from './Pages';
 import { Profile, TaskCard, TaskCardList, TaskCardWithNodata, SignOut } from './Components';
 import React, { useEffect, useState } from 'react';
-import keycloak from './Services/KeyCloak';
 import { useDispatch } from 'react-redux';
-import { ReactKeycloakProvider, useKeycloak } from "@react-keycloak/web";
 import { setAuth, clearAuth } from './Features/Auth/authSlice';
+import { useKeycloak } from "@react-keycloak/web";
 
 
 
 function App() {
+  
+  const { keycloak } = useKeycloak();
   const dispatch = useDispatch();
   const [keycloakInitialized, setKeycloakInitialized] = useState(false);
 
@@ -28,8 +29,12 @@ function App() {
       setKeycloakInitialized(true);
     }, [keycloak]);
 
-  if (!keycloakInitialized || keycloak == null) {
+  if (!keycloakInitialized) {
     return <div>Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...</div>;
+  }
+
+  if (!keycloak.authenticated) {
+    keycloak.login();
   }
 
   return (    
