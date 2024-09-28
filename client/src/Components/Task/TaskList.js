@@ -23,7 +23,8 @@ export default function TaskList(){
                     {/* <TaskCard key={task.id} task={task}></TaskCard> */}
                     <div className="flex justify-between  gap-x-6 py-4 rounded-lg shadow-md mb-4">
                         <h3 className="text-lg font-bold mb-2">{task.type}</h3>
-                        <p className="text-gray-700 mb-2">{task.description}</p>
+                        <p className="text-gray-700 mb-2">{task.title}</p>
+                        <p className="text-gray-700 mb-2 truncate max-w-xs">{task.description}</p>
                         <p className="text-sm text-gray-500"><strong>Assignee:</strong> {task.assignee}</p>
                         <p className="text-sm text-gray-500"><strong>Status:</strong> {task.status}</p>
                         <p className="text-sm text-gray-500"><strong>Priority:</strong> {task.priority}</p>
