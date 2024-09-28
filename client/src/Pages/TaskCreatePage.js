@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ProjectList } from '../Components';
 
 export default function TaskCreatePage(){
 
@@ -8,10 +9,30 @@ export default function TaskCreatePage(){
     const [priority, setPriority] = useState('Medium');
     const [assignee, setAssignee] = useState('');
     const [dueDate, setDueDate] = useState('');
+    const [projects, setProjects] = useState([]); // State to hold project list
+    const [selectedProjectId, setSelectedProjectId] = useState('');
 
     // Replace with actual project and author IDs
-    const projectId = "3fa85f64-5717-4562-b3fc-2c963f66afa6"; // Example project ID
-    const authorId = "3fa85f64-5717-4562-b3fc-2c963f66afa6"; // Example author ID
+    const projectId = "1e0566fb-f9df-43b0-b02c-d6098c5d893d"; // Example project ID
+    const authorId = "415939f0-0c06-4a89-b35c-00aa7363f72d"; // Example author ID
+
+    const GetProjectList = async () => await axios.get("https://ad-4stra.ru/api/projects");
+
+    // Fetch projects when the component mounts
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const response = await axios.get('https://ad-4stra.ru/api/projects');
+                // var data = JSON.parse(response);
+                
+                setProjects(response.data); // Assuming response.data contains the list of projects
+            } catch (error) {
+                console.error('Error fetching projects:', error);
+            }
+        };
+
+        fetchProjects();
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,7 +43,7 @@ export default function TaskCreatePage(){
             project: {
                 id: projectId,
                 name: title, // Use the title as the project name or adjust accordingly
-                tasks: [title], // Assuming tasks are related to the project
+                tasks: [], // Assuming tasks are related to the project
             },
             assignee: {
                 id: assignee, // Set to the actual assignee ID
@@ -72,6 +93,25 @@ export default function TaskCreatePage(){
                     required
                 />
             </div>
+            <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="project">
+                        Project
+                    </label>
+                    <select
+                        id="project"
+                        value={selectedProjectId}
+                        onChange={(e) => setSelectedProjectId(e.target.value)}
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring focus:ring-blue-500"
+                        required
+                    >
+                        <option value="" disabled>Select a project</option>
+                        {projects.map((project) => (
+                            <option key={project.id} value={project.id}>
+                                {project.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
             <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700" htmlFor="description">
