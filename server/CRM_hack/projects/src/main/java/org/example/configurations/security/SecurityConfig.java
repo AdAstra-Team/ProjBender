@@ -36,7 +36,8 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/swagger").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/projects/create_empty_project").permitAll()
                                 .requestMatchers("/health/ping").hasAuthority("ROLE_ADMIN")
-                                .anyRequest().authenticated());
+                                //.anyRequest().authenticated());
+                                .anyRequest().permitAll());
 
         http.sessionManagement(sess -> sess.sessionCreationPolicy(
                 SessionCreationPolicy.STATELESS));
