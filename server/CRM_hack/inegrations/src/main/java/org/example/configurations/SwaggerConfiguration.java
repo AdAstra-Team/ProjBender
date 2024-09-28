@@ -22,8 +22,8 @@ public class SwaggerConfiguration {
     public OpenAPI customOpenAPI() {
         OpenAPI openAPI = new OpenAPI()
                 .servers(List.of(
-                        new Server().url("https://ad-4stra.ru/api/").description("Production Server"),
-                        new Server().url("http://localhost:8082/api/").description("Local Development Server")
+                        new Server().url("https://ad-4stra.ru//integrations/").description("Production Server"),
+                        new Server().url("http://localhost:8083/integrations/").description("Local Development Server")
                 ))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new Components()
@@ -34,7 +34,7 @@ public class SwaggerConfiguration {
                                 .in(SecurityScheme.In.HEADER)
                                 .name("Authorization")))
                 .info(new Info()
-                        .title("General API ProjBender ")
+                        .title("Integration API ProjBender ")
                         .version("1.0")
                         .description("From Ad Astra"));
 
