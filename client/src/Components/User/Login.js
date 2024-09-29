@@ -30,12 +30,13 @@ export const Login = () => {
 
             
             const token = response.data.access_token;
-            const user = response.data.tokenParsed;
-            if (user != null | user != ""){
-                document.cookie = `keycloakToken=${token}; path=/; max-age=${user.exp - user.iat}; secure`;
-            }
+            const refresh_token = response.data.refresh_token;
+            const data = response.data;
+            document.cookie = `keycloakToken=${token}; path=/; max-age=${response.data.expires_in}; secure; keycloackRefreshToken=${refresh_token};
+            sessionState=${response.data.session_state}; token_type=${response.data.token_type};refreshExpiresIn:${response.data.refresh_expires_in}`;
             
-            dispatch(setAuth({ token, user }));
+            
+            dispatch(setAuth({ token, data }));
             console.log("User authenticated and token is set in cookies");
 
 
