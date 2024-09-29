@@ -1,8 +1,8 @@
 package org.example.services;
 
-import org.example.configurations.model.dao.TokenDTO;
-import org.example.configurations.model.entities.Token;
-import org.example.configurations.model.enums.AccessLevel;
+import org.example.model.dao.TokenDTO;
+import org.example.model.entities.Token;
+import org.example.model.enums.AccessLevel;
 import org.example.repositories.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +35,14 @@ public class TokenService {
         return tokenRepository.findByUserId(userId).stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+    public UUID getProjectIdByToken(UUID token) {
+        return tokenRepository.getById(token).getProjectId();
+    }
+
+    public Token getTokenById(UUID token) {
+        return tokenRepository.getById(token);
     }
 
     public List<TokenDTO> getTokensByProjectIdAndUserId(UUID projectId,UUID userId) {

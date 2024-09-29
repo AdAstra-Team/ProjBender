@@ -1,6 +1,7 @@
 package org.example.services;
 
 import org.example.models.entities.Task;
+import org.example.repositories.StatusRepository;
 import org.example.repositories.TaskRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -23,4 +23,10 @@ public class AppSettings {
     public String resourceId;
     @Value("${keycloak.realm}")
     public String realmName;
+
+    @Value(("${keycloak.admin.username}"))
+    public String username;
+
+    @Value(("${keycloak.admin.password}"))
+    public String password;
 }

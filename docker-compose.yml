@@ -9,6 +9,14 @@ services:
     restart: always
 #    environment:
 #      - JAVA_OPTS=-Xms512m -Xmx1024m
+  integrations:
+    build:
+      dockerfile:  ./server/CRM_hack/inegrations/Dockerfile
+    ports:
+      - "8083:8083"
+    restart: always
+#    environment:
+#      - JAVA_OPTS=-Xms512m -Xmx1024m
   client: 
     build: 
       dockerfile: dockerfile
