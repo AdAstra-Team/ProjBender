@@ -10,6 +10,8 @@ export default function TaskCreatePage(){
     const [assignee, setAssignee] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [projects, setProjects] = useState([]); // State to hold project list
+    const [users, setUsers] = useState([]);
+    const [statuses, setStatuses] = useState([]);
     const [selectedProjectId, setSelectedProjectId] = useState('');
 
     // Replace with actual project and author IDs
@@ -18,43 +20,42 @@ export default function TaskCreatePage(){
 
     // Fetch projects when the component mounts
     useEffect(() => {
-        const fetchProjects = async () => {
+        const fetchData = async (url, setter) => {
             try {
-                const response = await axios.get('https://ad-4stra.ru/api/projects');
+                const response = await axios.get(url);
                 // var data = JSON.parse(response);
                 
-                setProjects(response.data); // Assuming response.data contains the list of projects
+                setter(response.data); // Assuming response.data contains the list of projects
             } catch (error) {
                 console.error('Error fetching projects:', error);
             }
         };
 
-        fetchProjects();
+        fetchData('https://localhost:8082/api/projects', setProjects);
+        fetchData('https://localhost:8082/api/users', setUsers);
+        fetchData('https://localhost:8082/api/statuses', setStatuses);
     }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Handle form submission logic here
-        const taskData = {
-            id: crypto.randomUUID(), // Generate a unique ID for the task
-            description,
-            project: {
-                id: projectId,
-                name: title, // Use the title as the project name or adjust accordingly
-                tasks: [], // Assuming tasks are related to the project
-            },
-            assignee: {
-                id: assignee, // Set to the actual assignee ID
-                authId: assignee, // Replace with actual authId if different
-                name: assignee, // Set to the actual assignee name or modify accordingly
-            },
-            author: {
-                id: authorId,
-                authId: authorId, // Replace with actual authId if different
-                name: "Author Name", // Replace with actual author name
-            },
+        const taskData = taskData = {
+            description: description,
+            name: title,
             hoursRemained: 0,
             hoursDone: 0,
+            priority: priorityMap[priority],
+            status: {
+                id: "9153bce8-a67b-49bb-b6fc-d7096e62abdb" // status "to do"
+            },
+            user: {
+                id: users.find(x => x.name == assignee.name).id,
+                name: assignee
+            },
+            project: {
+                id: selectedProjectId, // Convert to Number if necessary
+                name: projects.find(x => x.id == selectedProjectId).name
+            }
         };
 
         try {
