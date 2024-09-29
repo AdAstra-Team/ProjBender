@@ -16,6 +16,10 @@ public class CorsConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")  // Настройка для всех путей
                 .allowedOrigins("https://ad-4stra.ru")  // Разрешить запросы с вашего домена
+                .allowedOrigins("https://detulie.space:8081")  // Разрешить запросы с вашего домена
+                .allowedOrigins("https://http://194.87.186.59:8081")  // Разрешить запросы с вашего домена                .allowedOrigins("https://detulie.space:8081")  // Разрешить запросы с вашего домена
+                .allowedOrigins("https://http://194.87.186.59")  // Разрешить запросы с вашего домена                .allowedOrigins("https://detulie.space:8081")  // Разрешить запросы с вашего домена
+                .allowedOrigins("https://http://detulie.space")  // Разрешить запросы с вашего домена
                 .allowedOrigins("https://localhost")  // Разрешить запросы с вашего домена
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Разрешенные HTTP-методы
                 .allowedHeaders("*")  // Разрешить все заголовки
