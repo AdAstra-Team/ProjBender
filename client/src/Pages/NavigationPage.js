@@ -12,7 +12,14 @@ const navigation = [
   { name: 'Задачи', href: '/Tasks', current: false },
   { name: 'Календарь', href: '/Calendar', current: false },
   { name: 'Проекты', href: '/Projects', current: false },
-  { name: 'Создать', href: '/CreateTask', current: false },
+  {
+    name: 'Создать',
+    current: false,
+    subItems: [
+      { name: 'Создать задачу', href: '/CreateTask' },
+      { name: 'Создать проект', href: '/CreateProject' },
+    ],
+  },
   { name: 'JustSimpleTaskDemo', href: '/JustSimpleTaskDemo', current: false },
 ]
 
@@ -69,17 +76,33 @@ export default function Navigation() {
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
                     {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        aria-current={item.current ? 'page' : undefined}
-                        className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium',
+                      <div key={item.name} className="relative group">
+                        <a
+                          href={item.href || '#'}
+                          aria-current={item.current ? 'page' : undefined}
+                          className={classNames(
+                            item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            'rounded-md px-3 py-2 text-sm font-medium',
+                          )}
+                        >
+                          {item.name}
+                        </a>
+
+                        {/* Dropdown for sub-items, only show on hover */}
+                        {item.subItems && (
+                          <div className="absolute left-0 mt-2 w-48 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            {item.subItems.map((subItem) => (
+                              <a
+                                key={subItem.name}
+                                href={subItem.href}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              >
+                                {subItem.name}
+                              </a>
+                            ))}
+                          </div>
                         )}
-                      >
-                        {item.name}
-                      </a>
+                      </div>
                     ))}
                   </div>
                 </div>
