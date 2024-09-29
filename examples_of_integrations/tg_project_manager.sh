@@ -28,14 +28,14 @@ while true; do
     else
         if [[ $MESSAGE_TEXT == "/getproject" ]]; then
             RESPONSE=$(curl -s -X 'GET' \
-                "http://localhost:8083/integrations/integrations/projects/project?token=$USER_TOKEN" \
+                "https://ad-4stra.ru/integrations/integrations/projects/project?token=$USER_TOKEN" \
                 -H 'accept: */*')
             send_message "$CHAT_ID" "Ответ от API: $RESPONSE"
         
         else
             USER_MESSAGE="$MESSAGE_TEXT"
             RESPONSE=$(curl -s -X 'POST' \
-                "http://localhost:8083/integrations/integrations/projects/project/add_task?token=$USER_TOKEN&description=${USER_MESSAGE}%20desc&name=tg_Task%20name" \
+                "https://ad-4stra.ru/integrations/integrations/projects/project/add_task?token=$USER_TOKEN&description=${USER_MESSAGE}%20desc&name=tg_Task%20name" \
                 -H 'accept: */*')
             send_message "$CHAT_ID" "Задача добавлена. Ответ от API: $RESPONSE"
         fi
