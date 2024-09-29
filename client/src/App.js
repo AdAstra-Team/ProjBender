@@ -15,48 +15,20 @@ function App() {
   
   // const { keycloak } = useKeycloak();
   const dispatch = useDispatch();
-  const [keycloakInitialized, setKeycloakInitialized] = useState(false);
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
-  // useEffect(() => {
-  //   if (!keycloak.authenticated) {
-  //     var token = getTokenFromCookies();
-  //     if (token != "" && token != null){
-  //       keycloak.token = token;
-  //       keycloak.authenticated = true;
-  //     }
-
-  //     dispatch(clearAuth());
-  //   } 
-  //   else {
-  //     const token = keycloak.token;
-  //     const user = keycloak.tokenParsed;
-  //     if (user != null | user != ""){
-  //       document.cookie = `keycloakToken=${token}; path=/; max-age=${user.exp - user.iat}; secure`;
-  //     }
-      
-  //     dispatch(setAuth({ token, user }));
-  //     console.log("User authenticated and token is set in cookies");
-  //   }
-  //   setKeycloakInitialized(true);
-  // }, [keycloak]);
-
-  if (!isAuthenticated || isAuthenticated == null || isAuthenticated == undefined) 
-  {
-    return (
-      <Router>
-          <Routes>
-              <Route path="/Login" element={<Login/>} />
-          </Routes>
-          <Navigate to="/login" />
-      </Router>
-    );
-  }
+  const auth = useSelector((state) => state.auth);
+  const state = useSelector((state) => state);
 
   return (    
     <div className="App">
       <Router>
         <Navigation/>
-          <Routes>
+              {!auth.isAuthenticated ?
+                <Navigate to="/Login" />:
+                ""
+              }
+            <Routes>
+              <Route path="/Login" element={<Login />} />
               <Route path="/" element={<Dashboard />} />
               <Route path="/boards" element={<DesksPage />} />
               <Route path="/tasks" element={<TaskCardList />} />

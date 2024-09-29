@@ -2,10 +2,12 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setAuth, clearAuth } from '../../Features/Auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Login = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -30,18 +32,22 @@ export const Login = () => {
 
             
             const token = response.data.access_token;
-            const user = response.data.tokenParsed;
-            if (user != null | user != ""){
-                document.cookie = `keycloakToken=${token}; path=/; max-age=${user.exp - user.iat}; secure`;
-            }
+            const refresh_token = response.data.refresh_token;
+            const data = response.data;
+            const expiresInSeconds = response.data.expires_in;
+            const refreshExpiresIn = response.data.refresh_expires_in;
+
+            document.cookie = `access_token=${token}; path=/; max-age=${expiresInSeconds}; secure; samesite=strict`;
+            document.cookie = `refresh_token=${refresh_token}; path=/; max-age=${refreshExpiresIn}; secure; samesite=strict`;
             
-            dispatch(setAuth({ token, user }));
+            dispatch(setAuth({ token, data }));
             console.log("User authenticated and token is set in cookies");
 
 
             console.log("response collected!!!!!!!!!!!!!!!!!!!!!");
             
             console.log('Response:', response.data);
+            navigate('/');
         })
         .catch(error => {
             console.log("ERRRRRRRRRRRRRRRRRRRRRRORRRRRRRRRRRRRRRRRRRR");
