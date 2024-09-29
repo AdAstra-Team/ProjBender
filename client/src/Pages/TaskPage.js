@@ -25,9 +25,6 @@ export const updateTask = (id, updatedTask) => ({
 
 
 export default function TaskPage(){
-
-    const tasks = useSelector((state) => state.Tasks.Tasks);
-
     const Tasks = useSelector((state) => state.Tasks.Tasks);
     const dispatch = useDispatch();
 
