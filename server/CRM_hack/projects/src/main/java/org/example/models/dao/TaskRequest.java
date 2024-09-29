@@ -8,7 +8,8 @@ public class TaskRequest {
     private int priority;
 
     private StatusValue status;
-    private UserValue user;
+    private UserValue assignee;
+    private UserValue author;
     private ProjectValue project;
 
     public StatusValue getStatus() {
@@ -19,12 +20,12 @@ public class TaskRequest {
         this.status = status;
     }
 
-    public UserValue getUser() {
-        return user;
+    public UserValue getAssignee() {
+        return assignee;
     }
 
-    public void setUser(UserValue user) {
-        this.user = user;
+    public void setAssignee(UserValue assignee) {
+        this.assignee = assignee;
     }
 
     public ProjectValue getProject() {
@@ -73,5 +74,13 @@ public class TaskRequest {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public UserValue getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(UserValue author) {
+        this.author = author;
     }
 }
