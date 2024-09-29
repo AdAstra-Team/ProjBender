@@ -18,7 +18,6 @@ import java.time.Duration;
 
 @Component
 public class KeycloakClient {
-
     private static final Logger logger = LoggerFactory.getLogger(KeycloakClient.class);
 
     private final WebClient keycloakClient;
