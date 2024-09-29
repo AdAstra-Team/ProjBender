@@ -17,24 +17,18 @@ function App() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
   const auth = useSelector((state) => state.auth);
-
-  if (!auth.isAuthenticated) 
-  {
-    return (
-      <Router>
-        <Routes>
-          <Route path="/Login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/Login" />} />
-        </Routes>
-      </Router>
-    );
-  }
+  const state = useSelector((state) => state);
 
   return (    
     <div className="App">
       <Router>
         <Navigation/>
-          <Routes>
+              {!auth.isAuthenticated ?
+                <Navigate to="/Login" />:
+                ""
+              }
+            <Routes>
+              <Route path="/Login" element={<Login />} />
               <Route path="/" element={<Dashboard />} />
               <Route path="/boards" element={<DesksPage />} />
               <Route path="/tasks" element={<TaskCardList />} />

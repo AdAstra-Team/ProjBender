@@ -2,10 +2,12 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setAuth, clearAuth } from '../../Features/Auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Login = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -32,9 +34,11 @@ export const Login = () => {
             const token = response.data.access_token;
             const refresh_token = response.data.refresh_token;
             const data = response.data;
-            document.cookie = `keycloakToken=${token}; path=/; max-age=${response.data.expires_in}; secure; keycloackRefreshToken=${refresh_token};
-            sessionState=${response.data.session_state}; token_type=${response.data.token_type};refreshExpiresIn:${response.data.refresh_expires_in}`;
-            
+            const expiresInSeconds = response.data.expires_in;
+            const refreshExpiresIn = response.data.refresh_expires_in;
+
+            document.cookie = `access_token=${token}; path=/; max-age=${expiresInSeconds}; secure; samesite=strict`;
+            document.cookie = `refresh_token=${refresh_token}; path=/; max-age=${refreshExpiresIn}; secure; samesite=strict`;
             
             dispatch(setAuth({ token, data }));
             console.log("User authenticated and token is set in cookies");
@@ -43,6 +47,7 @@ export const Login = () => {
             console.log("response collected!!!!!!!!!!!!!!!!!!!!!");
             
             console.log('Response:', response.data);
+            navigate('/');
         })
         .catch(error => {
             console.log("ERRRRRRRRRRRRRRRRRRRRRRORRRRRRRRRRRRRRRRRRRR");
