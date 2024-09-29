@@ -24,9 +24,9 @@ export const Login = () => {
         console.log('Request Data:', data.toString());
 
         axios.post('http://detulie.space:8080/realms/auth/protocol/openid-connect/token', data, {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
         })
         .then(response => {
 
@@ -36,6 +36,7 @@ export const Login = () => {
             const data = response.data;
             const expiresInSeconds = response.data.expires_in;
             const refreshExpiresIn = response.data.refresh_expires_in;
+            data.user = email;
 
             document.cookie = `access_token=${token}; path=/; max-age=${expiresInSeconds}; secure; samesite=strict`;
             document.cookie = `refresh_token=${refresh_token}; path=/; max-age=${refreshExpiresIn}; secure; samesite=strict`;
