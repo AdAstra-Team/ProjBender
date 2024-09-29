@@ -2,6 +2,7 @@ package org.example.clients;
 
 import org.example.configurations.AppSettings;
 import org.example.model.dao.ProjectResponse;
+import org.example.model.dao.TaskResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class ProjectsClient {
 
     private final AppSettings appSettings;
     private static final String GET_PROJECT_BY_ID_ENDPOINT = "/api/projects/";
+    private static final String CREATE_TASK_ENDPOINT = "/api/tasks";
 
     @Autowired
     public ProjectsClient(@Qualifier("projectsClient") WebClient projectsClient, AppSettings appSettings) {
@@ -44,6 +46,24 @@ public class ProjectsClient {
                 .headers(httpHeaders -> httpHeaders.addAll(headers))
                 .retrieve()
                 .bodyToMono(ProjectResponse.class)
+                .retryWhen(Retry.fixedDelay(appSettings.retryAttempts,
+                        Duration.ofMillis(appSettings.retryDelayMillis)));
+    }
+
+
+    public Mono<TaskResponse> AddTaskToProject(TaskResponse task, String adminAccessToken) {
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(adminAccessToken);
+
+        return projectsClient.post()
+                .uri(uriBuilder -> uriBuilder
+                        .path(CREATE_TASK_ENDPOINT)
+                        .build())
+                .body(Mono.just(task), TaskResponse.class)
+                .headers(httpHeaders -> httpHeaders.addAll(headers))
+                .retrieve()
+                .bodyToMono(TaskResponse.class)
                 .retryWhen(Retry.fixedDelay(appSettings.retryAttempts,
                         Duration.ofMillis(appSettings.retryDelayMillis)));
     }

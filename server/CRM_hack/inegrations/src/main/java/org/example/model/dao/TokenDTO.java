@@ -1,5 +1,6 @@
 package org.example.model.dao;
 
+import org.example.model.entities.Token;
 import org.example.model.enums.AccessLevel;
 
 import java.util.UUID;
@@ -19,6 +20,14 @@ public class TokenDTO {
         this.accessLevel = accessLevel;
         this.expirationTime = expirationTime;
         this.createdByUserId = createdByUserId;
+    }
+
+    public TokenDTO(Token token) {
+        this.id = token.getId();
+        this.projectId = token.getProjectId();
+        this.accessLevel = token.getAccessLevel();
+        this.expirationTime = token.getExpirationTime();
+        this.createdByUserId = token.getUserId();
     }
 
 

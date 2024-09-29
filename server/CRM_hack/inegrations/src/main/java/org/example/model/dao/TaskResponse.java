@@ -1,7 +1,5 @@
 package org.example.model.dao;
 
-import org.apache.catalina.User;
-
 import java.util.UUID;
 
 public class TaskResponse {
