@@ -18,14 +18,14 @@ const tokenLogger = (tokens) => {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ReactKeycloakProvider authClient={keycloak}
-    onEvent={eventLogger}
-    onTokens={tokenLogger}
-    >
+  // <ReactKeycloakProvider authClient={keycloak}
+    // onEvent={eventLogger}
+    // onTokens={tokenLogger}
+    // >
     <Provider  store={store}>
       <App />
     </Provider >
-  </ReactKeycloakProvider>
+  // </ReactKeycloakProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
