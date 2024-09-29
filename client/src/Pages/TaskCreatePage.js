@@ -31,9 +31,9 @@ export default function TaskCreatePage(){
             }
         };
 
-        fetchData('https://localhost:8082/api/projects', setProjects);
-        fetchData('https://localhost:8082/api/users', setUsers);
-        fetchData('https://localhost:8082/api/statuses', setStatuses);
+        fetchData('https://ad-4stra.ru/api/projects', setProjects);
+        fetchData('https://ad-4stra.ru/api/users', setUsers);
+        fetchData('https://ad-4stra.ru/api/statuses', setStatuses);
     }, []);
 
     const handleSubmit = async (e) => {
