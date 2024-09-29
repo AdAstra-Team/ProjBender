@@ -41,6 +41,10 @@ public class TokenService {
         return tokenRepository.getById(token).getProjectId();
     }
 
+    public Token getTokenById(UUID token) {
+        return tokenRepository.getById(token);
+    }
+
     public List<TokenDTO> getTokensByProjectIdAndUserId(UUID projectId,UUID userId) {
         return tokenRepository.findByProjectIdAndUserId(projectId, userId).stream()
                 .map(this::convertToDTO)

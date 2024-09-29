@@ -34,7 +34,8 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     public ProjectResponse getProjectById(@PathVariable UUID id) {
-        return mapper.map(projectService.getProjectById(id), ProjectResponse.class);
+        var project = projectService.getProjectById(id);
+        return new ProjectResponse(project);
     }
 
     @PostMapping
