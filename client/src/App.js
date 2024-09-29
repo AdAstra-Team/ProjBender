@@ -31,7 +31,8 @@ function App() {
               <Route path="/Login" element={<Login />} />
               <Route path="/" element={<Dashboard />} />
               <Route path="/boards" element={<DesksPage />} />
-              <Route path="/tasks" element={<TaskCardList />} />
+              {/* <Route path="/tasks" element={<TaskCardList />} /> */}
+              <Route path="/tasks" element={<TaskPage />} />
               <Route path="/calendar" element={<CalendarPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/CreateTask" element={<TaskCreatePage />} />

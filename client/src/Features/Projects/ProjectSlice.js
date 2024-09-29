@@ -11,7 +11,7 @@ export const fetchProjects = createAsyncThunk('projects/fetchProjects', async ()
 const projectSlice = createSlice({
   name: 'projects',
   initialState: {
-    projects: [],
+    projects: ["proj1"],
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
   },
