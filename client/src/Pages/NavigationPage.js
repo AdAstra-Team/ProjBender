@@ -1,7 +1,8 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { default as Dashboard } from './DashboardPage'
-import { useKeycloak } from "@react-keycloak/web";
+import { useSelector } from 'react-redux'
+// import { useKeycloak } from "@react-keycloak/web";
 
 
 
@@ -27,10 +28,11 @@ function classNames(...classes) {
 
 export default function Navigation() {
 
-  const { keycloak } = useKeycloak();
+  // const { keycloak } = useKeycloak();
+  var isAuthenticated = useSelector((state) => state.isAuthenticated);
 
   const user = {
-    name: keycloak.user,
+    name: "Бодя",
     email: 'tom@example.com',
     imageUrl:
       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
@@ -169,7 +171,7 @@ export default function Navigation() {
               </div>
               <div className="mt-3 space-y-1 px-2">
                 {
-                  keycloak.isLoggedIn ?
+                  isAuthenticated ?
                     userNavigation.map((item) => (
                       <DisclosureButton
                         key={item.name}

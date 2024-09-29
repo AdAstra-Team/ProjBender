@@ -1,7 +1,7 @@
 import Keycloak from "keycloak-js";
 
 const keycloak = new Keycloak({
-    url: "http://detulie.space:8080/",
+    url: "http://194.87.186.59:8080",
     realm: "auth",
     clientId: "dwh-manager"
 });
