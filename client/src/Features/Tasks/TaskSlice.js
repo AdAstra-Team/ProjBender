@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getTasks } from '../../Services/taskService.js'; // API service
 import { TaskModel as Task } from '../../Components/index.js';
+import { deleteTask } from '../../Pages/TaskPage.js';
+import axios from 'axios';
 
 // Async action for fetching tasks
 // export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
@@ -30,6 +32,9 @@ const taskSlice = createSlice({
         taskData.priority
       );
       state.taskList.push(task); // Correctly push to taskList
+    },
+    deleteTask: (state) => {
+      axios.get()
     }
   },
   // extraReducers: (builder) => {

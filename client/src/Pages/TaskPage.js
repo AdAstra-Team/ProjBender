@@ -101,7 +101,7 @@ const TaskManager = () => {
   // const dispatch = useDispatch();
 
 
-  const API_URL = 'https://ad-4stra.ru/api/projects';
+  const API_URL = 'https://ad-4stra.ru/api/tasks';
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const state = useSelector((state) => state);
@@ -110,10 +110,20 @@ const TaskManager = () => {
   // var statetest = state.tasks;
   // // const tasks = taskState.taskList;
 
+
+  const [tasks, setTasks] = useState([
+    new Task(1, 'bug', 'Implement login', 'Create login functionality', 'In Progress', 'Alice', 'High'),
+    new Task(2, 'fix','Setup Redux', 'Initialize Redux store and slices', 'Backlog', 'Bob', 'Medium'),
+    new Task(3, 'feature','Design database schema', 'Prepare schema for database', 'Done', 'Charlie', 'Low'),
+    new Task(4, 'feature','Design database schema', 'Some long description Some long description Some long description Some long description Some long description Some long description ', 'Done', 'Charlie', 'Low'),
+      // Add more sample tasks as needed
+  ]);
+
   const response = axios.get(API_URL, {
     headers: {
       // Include any required headers here, e.g., Authorization
-      'Authorization': token, // Replace with your token if needed
+      'Authorization': `Bearer ${token}`,
+      'Accept': '*/*',
     },
   }).then(response => {
     setTasks(response.data); // Assuming response.data is an array of tasks
@@ -126,16 +136,6 @@ const TaskManager = () => {
   .finally(() => {
     setLoading(false);
   });
-
-
-
-  const [tasks, setTasks] = useState([
-    new Task(1, 'bug', 'Implement login', 'Create login functionality', 'In Progress', 'Alice', 'High'),
-    new Task(2, 'fix','Setup Redux', 'Initialize Redux store and slices', 'Backlog', 'Bob', 'Medium'),
-    new Task(3, 'feature','Design database schema', 'Prepare schema for database', 'Done', 'Charlie', 'Low'),
-    new Task(4, 'feature','Design database schema', 'Some long description Some long description Some long description Some long description Some long description Some long description ', 'Done', 'Charlie', 'Low'),
-      // Add more sample tasks as needed
-  ]);
 
 
   const [filteredTasks, setFilteredTasks] = useState(tasks);
