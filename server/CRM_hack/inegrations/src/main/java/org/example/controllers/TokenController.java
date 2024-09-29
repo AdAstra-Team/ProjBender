@@ -3,6 +3,7 @@ package org.example.controllers;
 import org.example.model.dao.TokenDTO;
 import org.example.model.enums.AccessLevel;
 import org.example.services.TokenService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class TokenController {
     private final TokenService tokenService;
 
+    @Autowired
     public TokenController(TokenService tokenService){
         this.tokenService = tokenService;
     }
