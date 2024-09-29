@@ -1,7 +1,7 @@
-package org.example.configurations.model.entities;
+package org.example.model.entities;
 
 import jakarta.persistence.*;
-import org.example.configurations.model.enums.AccessLevel;
+import org.example.model.enums.AccessLevel;
 
 import java.util.UUID;
 

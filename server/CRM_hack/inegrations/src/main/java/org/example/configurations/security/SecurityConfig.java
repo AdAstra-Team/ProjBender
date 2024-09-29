@@ -26,8 +26,9 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/*").permitAll()
                                 .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/swagger").permitAll()
-                                //.anyRequest().authenticated());
-                                .anyRequest().permitAll());
+                                .requestMatchers( "/integrations/projects/**").permitAll()
+                                .anyRequest().authenticated());
+                                //.anyRequest().permitAll());
 
         http.sessionManagement(sess -> sess.sessionCreationPolicy(
                 SessionCreationPolicy.STATELESS));

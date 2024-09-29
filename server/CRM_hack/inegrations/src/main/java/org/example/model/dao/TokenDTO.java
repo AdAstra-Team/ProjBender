@@ -1,6 +1,6 @@
-package org.example.configurations.model.dao;
+package org.example.model.dao;
 
-import org.example.configurations.model.enums.AccessLevel;
+import org.example.model.enums.AccessLevel;
 
 import java.util.UUID;
 

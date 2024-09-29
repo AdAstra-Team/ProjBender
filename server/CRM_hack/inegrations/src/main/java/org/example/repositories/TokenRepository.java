@@ -1,6 +1,6 @@
 package org.example.repositories;
 
-import org.example.configurations.model.entities.Token;
+import org.example.model.entities.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -8,9 +8,20 @@ import keycloak from './Services/KeyCloak';
 import { ReactKeycloakProvider, useKeycloak } from "@react-keycloak/web";
 import { store } from './app/Store';
 
+const eventLogger = (event, error) => {
+  console.log('onKeycloakEvent', event, error);
+};
+
+const tokenLogger = (tokens) => {
+  console.log('onKeycloakTokens', tokens);
+};
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ReactKeycloakProvider authClient={keycloak}>
+  <ReactKeycloakProvider authClient={keycloak}
+    onEvent={eventLogger}
+    onTokens={tokenLogger}
+    >
     <Provider  store={store}>
       <App />
     </Provider >
